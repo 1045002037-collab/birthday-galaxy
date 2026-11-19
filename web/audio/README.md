@@ -1,11 +1,19 @@
-# 可选背景音乐
+# 背景音乐
 
-开源版默认静音，不附带商业音乐。请使用你拥有相应使用与分发授权的音频。
+本定制版选用 Pixabay 的纯钢琴曲《Peaceful Piano Background》（Universfield，1:37）：
+https://pixabay.com/music/modern-classical-peaceful-piano-background-268021/
 
-将文件放入此目录，例如 `my-birthday.mp3`，再修改 `web/app.js`：
+该页面标注可在 Pixabay Content License 下使用。请在 Pixabay 页面点击 Free download 下载 MP3，并保存为：
+
+`web/audio/peaceful-piano-background.mp3`
+
+然后在 `web/app.js` 中设置：
 
 ```js
-const BACKGROUND_MUSIC = { src: "audio/my-birthday.mp3", title: "我的生日音乐" };
+const BACKGROUND_MUSIC = {
+  src: "audio/peaceful-piano-background.mp3",
+  title: "Peaceful Piano Background"
+};
 ```
 
-点击开场蛋糕后才会播放，页面中可静音。音频默认被 `.gitignore` 排除；部署前请自行确认音频的使用范围。
+点击网页原有的蛋糕开场按钮后才会播放，以符合浏览器的自动播放限制。请保留下载页面和许可信息以便日后核对。
