@@ -84,7 +84,7 @@ let cardInteraction=null;
 
 const BACKGROUND_MUSIC = {
   src: "audio/peaceful-piano-background.mp3",
-  title: "Peaceful Piano Background · Universfield"
+  title: "原创轻柔生日钢琴曲"
 };
 let backgroundAudio = null;
 let musicEnabled = false;
