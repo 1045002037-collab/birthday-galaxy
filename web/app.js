@@ -82,7 +82,10 @@ let active = false;
 let heartbeatTimer = 0;
 let cardInteraction=null;
 
-const BACKGROUND_MUSIC = { src: "", title: "" };
+const BACKGROUND_MUSIC = {
+  src: "audio/peaceful-piano-background.mp3",
+  title: "Peaceful Piano Background · Universfield"
+};
 let backgroundAudio = null;
 let musicEnabled = false;
 let musicWanted = false;
