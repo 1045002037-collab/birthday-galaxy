@@ -1,10 +1,7 @@
-# 背景音乐文件
+# 背景音乐
 
-网页已配置为读取本目录下的 `peaceful-piano-background.mp3`。
+本目录包含 `peaceful-piano-background.mp3`，这是一段为本生日网页原创合成的轻柔钢琴氛围音乐，约 220 秒，可循环播放。
 
-请从 Pixabay 下载《Peaceful Piano Background》（Universfield，时长约 1:37）：
-https://pixabay.com/music/modern-classical-peaceful-piano-background-268021/
+网页通过 `web/app.js` 加载该文件。进入生日体验时可点击“开启音乐与祝福”，也可以在页面控制栏或蛋糕制作页面点击音符按钮开启/关闭音乐。
 
-下载 MP3 后，将文件名改为 `peaceful-piano-background.mp3`，放在本目录（`web/audio/`）中，然后将整个项目上传到 GitHub。
-
-说明：本 ZIP 不包含 MP3 音频文件，因此只修改配置还不能产生声音。浏览器通常禁止网页未经用户操作自动播放；打开网页后需点击页面上的“音乐”按钮（或开场的“开启音乐与祝福”）启动播放。音频会循环播放。
+浏览器通常禁止未经用户操作自动播放声音，因此首次播放需要用户点击。部署到 GitHub Pages 时，请确保整个 `web/` 目录（包括本音频文件）一并发布。
