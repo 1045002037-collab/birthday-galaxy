@@ -12,11 +12,21 @@ const palettes = [
   ["#fff9f6", "#f6e0d5", "#bb8b76"],
 ];
 const messages = [
-  "希望你永远做自己", "愿你所愿，皆能如愿", "新的一岁，闪闪发光",
-  "愿快乐与你不期而遇", "愿你被这个世界温柔以待", "每一天，都值得被珍藏",
-  "愿你眼里，始终有光", "祝你自由，也祝你勇敢", "愿生活，满是小确幸",
-  "慢慢长大，好好爱自己", "愿你一路繁花，岁岁欢喜", "愿你永远热烈而明亮",
-  "愿所有美好，都奔向你", "愿你平安喜乐，万事胜意", "生日快乐，今天你最大",
+  "愿你把温柔带给居民，也把温柔留给自己",
+  "愿每一次耐心倾听，都收获真诚的信任",
+  "愿社区因你的用心，多一分温暖与欢喜",
+  "愿每一份平凡付出，都被看见、被珍惜",
+  "愿邻里和睦，家家安宁，日日有笑颜",
+  "愿你在服务居民的路上，始终有光有力量",
+  "愿每一次真诚问候，都成为温暖的回响",
+  "愿仙居雅苑的四季，都因善意而更加美好",
+  "愿每一份热心志愿，都点亮一段美好时光",
+  "愿基层工作的忙碌，常有理解与掌声相伴",
+  "愿你守护万家灯火，也有人守护你的快乐",
+  "愿每个小小心愿，都在用心服务中开花",
+  "愿你工作顺心，生活舒心，眼里一直有光",
+  "愿你的善意有回响，努力有收获，岁岁皆欢喜",
+  "潘姝含，生日快乐，愿你永远热忱而闪亮"
 ];
 
 // 计算半边后按等弧长取点，再接上左半边；顺序始终为右下、左上。
@@ -168,7 +178,7 @@ function createCard(index) {
   ["--paper-top", "--paper-bottom", "--accent"].forEach((property, i) => node.style.setProperty(property, palette[i]));
   node.style.zIndex = index + 1;
   node.innerHTML = '<div class="card-header"><span class="card-heart" aria-hidden="true">♡</span><span class="card-label">一份小小的祝福</span><button class="card-close" type="button" aria-label="收起这张祝福卡片">×</button></div><p class="card-message"></p><span class="card-footer" aria-hidden="true">HAPPY BIRTHDAY</span>';
-  const namedMessages=recipient?[`${recipient.name}，生日快乐`,`${recipient.name}，愿你自在勇敢`,`${recipient.birthdayAge}岁，继续闪闪发光`,messages[3],`${recipient.name}，愿你平安喜乐`,messages[5],`${recipient.name}，眼里始终有光`,messages[7],messages[8],`${recipient.name}，好好爱自己`,messages[10],messages[11],`${recipient.name}，美好都奔向你`,messages[13],`${recipient.birthdayAge}岁生日，今天你最大`]:messages;
+  const namedMessages=messages;
   const message=namedMessages[index % namedMessages.length];
   node.querySelector(".card-message").textContent = message;
   node.classList.toggle('personal-long',Array.from(message).length>19);
@@ -183,7 +193,7 @@ function createCard(index) {
 }
 
 function replay() {
-  if(!recipient){document.getElementById('birthday-name').focus({preventScroll:true});return;}
+  if(!recipient)return;
   cakeNavigation++;
   cake?.pause();
   cakeScreen.hidden = true;
@@ -367,4 +377,34 @@ if (!BACKGROUND_MUSIC.src) {
   document.getElementById("start-quiet").hidden = true;
 }
 else document.getElementById('intro-title').textContent='点击开启音乐与祝福';
-document.getElementById('birthday-name').focus({preventScroll:true});
+// 潘姝含专属入口：跳过姓名/生日填写页，直接进入原有的生日开场页。
+(async function initializePresetRecipient(){
+  try{
+    const [profile,interaction]=await Promise.all([
+      import('./birthday-profile.js?v=3'),
+      import('./heart-cards.js?v=1')
+    ]);
+    const next=profile.createBirthdayProfile('潘姝含','2000.11.21');
+    profile.setRecipient(next);
+    recipient=next;
+    cardInteraction=interaction.createCardInteraction({
+      cards,stage,getNodes:()=>nodes,getPositions:()=>positions,
+      getCardSize:()=>({width:cardWidth,height:cardHeight}),
+      position:positionCard,onStatus:text=>status.textContent=text
+    });
+    document.getElementById('recipient-greeting').textContent=`只送给 ${next.name}`;
+    document.getElementById('recipient-heart-note').textContent='愿你把温暖带给社区，也被生活温柔以待';
+    document.getElementById('intro-description').textContent=`给${next.name}的生日惊喜，愿你工作顺心、岁岁欢喜`;
+    document.getElementById('cake-recipient-line').textContent=`${next.name}，愿你在平凡岗位上收获不平凡的温暖`;
+    document.title=`${next.name}，生日快乐`;
+    identityScreen.hidden=true;
+    identityScreen.inert=true;
+    introScreen.hidden=false;
+    introScreen.inert=false;
+    document.body.classList.remove('awaiting-identity');
+    document.getElementById('start').focus({preventScroll:true});
+  }catch(error){
+    console.error('Birthday initialization failed:',error);
+    document.getElementById('identity-error').textContent='生日祝福暂时未能打开，请刷新页面重试。';
+  }
+})();
