@@ -1,19 +1,10 @@
-# 背景音乐
+# 背景音乐文件
 
-本定制版选用 Pixabay 的纯钢琴曲《Peaceful Piano Background》（Universfield，1:37）：
+网页已配置为读取本目录下的 `peaceful-piano-background.mp3`。
+
+请从 Pixabay 下载《Peaceful Piano Background》（Universfield，时长约 1:37）：
 https://pixabay.com/music/modern-classical-peaceful-piano-background-268021/
 
-该页面标注可在 Pixabay Content License 下使用。请在 Pixabay 页面点击 Free download 下载 MP3，并保存为：
+下载 MP3 后，将文件名改为 `peaceful-piano-background.mp3`，放在本目录（`web/audio/`）中，然后将整个项目上传到 GitHub。
 
-`web/audio/peaceful-piano-background.mp3`
-
-然后在 `web/app.js` 中设置：
-
-```js
-const BACKGROUND_MUSIC = {
-  src: "audio/peaceful-piano-background.mp3",
-  title: "Peaceful Piano Background"
-};
-```
-
-点击网页原有的蛋糕开场按钮后才会播放，以符合浏览器的自动播放限制。请保留下载页面和许可信息以便日后核对。
+说明：本 ZIP 不包含 MP3 音频文件，因此只修改配置还不能产生声音。浏览器通常禁止网页未经用户操作自动播放；打开网页后需点击页面上的“音乐”按钮（或开场的“开启音乐与祝福”）启动播放。音频会循环播放。
